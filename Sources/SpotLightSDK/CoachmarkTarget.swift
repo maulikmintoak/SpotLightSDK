@@ -1,0 +1,138 @@
+import UIKit
+
+public struct CoachmarkTarget {
+    public let targetView: UIView
+    public let title: CMText
+    public let description: CMText
+    public let shape: CoachmarkShape
+    public let paddingDp: Int
+    public let highlightStrokeColor: UIColor?
+    public let highlightFillColor: UIColor?
+    public let nextButtonMode: CMButtonMode?
+    public let previousButtonMode: CMButtonMode?
+    public let skipButtonMode: CMButtonMode?
+    public let showAnimation: Bool?
+    public let needBorder: Bool?
+    public let borders: [CMBorder]?
+    public let needPadding: Bool?
+    public let extraPadding: CGFloat?
+    public let paddingBorder: CMPaddingBorder?
+    public let popupDistance: CGFloat?
+    public let titleAlignment: NSTextAlignment?
+    public let descriptionAlignment: NSTextAlignment?
+    public let showBottomButtonStack: Bool?
+    
+    public init(targetView: UIView,
+                title: CMText,
+                description: CMText,
+                shape: CoachmarkShape,
+                paddingDp: Int,
+                highlightStrokeColor: UIColor? = nil,
+                highlightFillColor: UIColor? = nil,
+                nextButtonMode: CMButtonMode? = nil,
+                previousButtonMode: CMButtonMode? = nil,
+                skipButtonMode: CMButtonMode? = nil,
+                showAnimation: Bool? = nil,
+                needBorder: Bool? = nil,
+                borders: [CMBorder]? = nil,
+                needPadding: Bool? = nil,
+                extraPadding: CGFloat? = nil,
+                paddingBorder: CMPaddingBorder? = nil,
+                popupDistance: CGFloat? = nil,
+                titleAlignment: NSTextAlignment? = nil,
+                descriptionAlignment: NSTextAlignment? = nil,
+                showBottomButtonStack: Bool? = nil) {
+        self.targetView = targetView
+        self.title = title
+        self.description = description
+        self.shape = shape
+        self.paddingDp = paddingDp
+        self.highlightStrokeColor = highlightStrokeColor
+        self.highlightFillColor = highlightFillColor
+        self.nextButtonMode = nextButtonMode
+        self.previousButtonMode = previousButtonMode
+        self.skipButtonMode = skipButtonMode
+        self.showAnimation = showAnimation
+        self.needBorder = needBorder
+        self.borders = borders
+        self.needPadding = needPadding
+        self.extraPadding = extraPadding
+        self.paddingBorder = paddingBorder
+        self.popupDistance = popupDistance
+        self.titleAlignment = titleAlignment
+        self.descriptionAlignment = descriptionAlignment
+        self.showBottomButtonStack = showBottomButtonStack
+    }
+}
+
+public struct CMPaddingBorder {
+    public let width: CGFloat
+    public let color: UIColor
+    public let cornerRadius: CGFloat
+    public init(width: CGFloat, color: UIColor, cornerRadius: CGFloat) {
+        self.width = width
+        self.color = color
+        self.cornerRadius = cornerRadius
+    }
+}
+
+public struct CMBorder {
+    public let width: CGFloat
+    public let color: UIColor
+    public let priority: Int
+    public init(width: CGFloat, color: UIColor, priority: Int) {
+        self.width = width
+        self.color = color
+        self.priority = priority
+    }
+}
+
+public enum CMButtonMode {
+    case image(tint: UIColor? = nil)
+    case text(CMText)
+}
+
+public enum CoachmarkShape {
+    case rect
+    case circle
+}
+
+public struct CMText {
+    public let text: String
+    public let color: UIColor
+    public let font: UIFont
+
+    public init(text: String, color: UIColor, font: UIFont) {
+        self.text = text
+        self.color = color
+        self.font = font
+    }
+}
+
+extension UILabel {
+    func configureLabel(color: UIColor, font: UIFont) {
+        self.textColor = color
+        self.font = font
+        self.adjustsFontForContentSizeCategory = true
+    }
+}
+
+extension UIButton {
+    func applyText(_ cm: CMText) {
+        setImage(nil, for: .normal)
+        setTitle(cm.text, for: .normal)
+        setTitleColor(cm.color, for: .normal)
+        titleLabel?.font = cm.font
+    }
+    
+    func applyImage(named name: String, tint: UIColor?) {
+        let img = UIImage(named: name)?.withRenderingMode(.alwaysTemplate)
+        setTitle("", for: .normal)
+        setImage(img, for: .normal)
+        if let tint = tint { self.tintColor = tint }
+        backgroundColor = .clear
+        contentEdgeInsets = .zero
+        layer.cornerRadius = 0
+        layer.borderWidth = 0
+    }
+}
