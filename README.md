@@ -241,7 +241,7 @@ The package ships `next_icon`, `previous_icon`, `close_icon`—keep those names 
 
 ## License
 
-MIT © Your Name
+MIT © Mintoak
 
 ---
 
