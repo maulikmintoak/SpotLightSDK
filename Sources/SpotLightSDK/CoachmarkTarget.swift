@@ -87,6 +87,16 @@ public struct CMBorder {
     }
 }
 
+enum CMAssets {
+    static func image(_ name: String) -> UIImage? {
+        #if SWIFT_PACKAGE
+        return UIImage(named: name, in: .module, compatibleWith: nil)
+        #else
+        return UIImage(named: name)
+        #endif
+    }
+}
+
 public enum CMButtonMode {
     case image(tint: UIColor? = nil)
     case text(CMText)
@@ -126,7 +136,7 @@ extension UIButton {
     }
     
     func applyImage(named name: String, tint: UIColor?) {
-        let img = UIImage(named: name)?.withRenderingMode(.alwaysTemplate)
+        let img = (CMAssets.image(name) ?? UIImage(named: name))?.withRenderingMode(.alwaysTemplate)
         setTitle("", for: .normal)
         setImage(img, for: .normal)
         if let tint = tint { self.tintColor = tint }

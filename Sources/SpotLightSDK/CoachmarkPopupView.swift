@@ -96,9 +96,9 @@ final class CoachmarkPopupView: UIView {
         statusLabel.textAlignment = .center
 
         // Default icons (keep your existing loading; adjust if using SPM bundle)
-        nextButton.setImage(UIImage(named: "next_icon"), for: .normal)
-        previousButton.setImage(UIImage(named: "previous_icon"), for: .normal)
-        skipButton.setImage(UIImage(named: "close_icon"), for: .normal)
+        nextButton.applyImage(named: "next_icon", tint: nil)
+        previousButton.applyImage(named: "previous_icon", tint: nil)
+        skipButton.applyImage(named: "close_icon", tint: nil)
         nextButton.titleLabel?.font = UIFont.systemFont(ofSize: 12.0)
 
         nextButton.translatesAutoresizingMaskIntoConstraints = false
