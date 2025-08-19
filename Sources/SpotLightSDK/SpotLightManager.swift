@@ -225,7 +225,7 @@ public final class SpotLightManager {
         case .text(let t):
             popup.nextButton.applyText(t)
             if isLastTarget() {
-                popup.nextButton.backgroundColor = .systemBlue
+                popup.nextButton.backgroundColor = t.bgColor
                 popup.nextButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
                 popup.nextButton.layer.cornerRadius = 4.0
                 popup.nextButton.layer.borderWidth = 0
