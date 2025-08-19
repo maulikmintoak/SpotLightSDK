@@ -216,7 +216,7 @@ public final class SpotLightManager {
         }
 
         let defaultNext: CMButtonMode = isLastTarget()
-            ? .text(CMText(text: "Done", color: .white, font: .systemFont(ofSize: 12, weight: .semibold)))
+            ? .text(CMText(text: "Done", color: .white, bgColor: .blue, font: .systemFont(ofSize: 12, weight: .semibold)))
             : .image()
         let nextMode = target.nextButtonMode ?? defaultNext
         switch nextMode {
