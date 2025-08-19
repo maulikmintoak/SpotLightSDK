@@ -110,11 +110,13 @@ public enum CoachmarkShape {
 public struct CMText {
     public let text: String
     public let color: UIColor
+    public let bgColor: UIColor
     public let font: UIFont
 
-    public init(text: String, color: UIColor, font: UIFont) {
+    public init(text: String, color: UIColor, bgColor: UIColor, font: UIFont) {
         self.text = text
         self.color = color
+        self.bgColor = bgColor
         self.font = font
     }
 }
