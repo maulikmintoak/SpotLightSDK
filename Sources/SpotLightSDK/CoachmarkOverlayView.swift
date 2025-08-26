@@ -6,13 +6,13 @@ final class CoachmarkOverlayView: UIView {
     private var target: CoachmarkTarget
     private let dimColor = UIColor.black.withAlphaComponent(0.7)
     private let strokeLayer = CAShapeLayer()
-    private let padding: CGFloat
-    private let shape: CoachmarkShape
+    private var padding: CGFloat { CGFloat(target.paddingDp) }
+    private var shape: CoachmarkShape { target.shape }
 
     init(target: CoachmarkTarget) {
         self.target = target
-        self.padding = CGFloat(target.paddingDp)
-        self.shape = target.shape
+//        self.padding = CGFloat(target.paddingDp)
+//        self.shape = target.shape
         super.init(frame: UIScreen.main.bounds)
         backgroundColor = .clear
         isUserInteractionEnabled = false
