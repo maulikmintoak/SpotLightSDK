@@ -1,7 +1,7 @@
 import UIKit
 
 public protocol SpotLightListener: AnyObject {
-    func onCoachmarkClosed()
+    func onCoachmarkClosed(index: Int)
     func onCoachmarkNextClicked(index: Int, isLastIndex: Bool)
     func onCoachmarkBackClicked(index: Int)
 }
@@ -249,6 +249,6 @@ public final class SpotLightManager {
         overlayView = nil
         popupView = nil
         isCoachmarkVisible = false
-        listener?.onCoachmarkClosed()
+        listener?.onCoachmarkClosed(index: self.currentIndex)
     }
 }
