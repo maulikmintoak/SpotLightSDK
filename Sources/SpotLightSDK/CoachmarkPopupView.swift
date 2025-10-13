@@ -6,6 +6,7 @@ import UIKit
 final class CoachmarkPopupView: UIView {
 
     let titleLabel = UILabel()
+    let leftBar = UIView()
     let descriptionLabel = UILabel()
     let statusLabel = UILabel()
     let nextButton = UIButton(type: .custom)
@@ -59,12 +60,21 @@ final class CoachmarkPopupView: UIView {
 
     private func setupViews() {
         backgroundColor = .white
-        layer.cornerRadius = 12
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.2
-        layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowRadius = 4
+        layer.cornerRadius = 10
 
+        leftBar.layer.cornerRadius = 6
+        leftBar.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner] // top-right & bottom-right
+        leftBar.clipsToBounds = true
+        leftBar.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(leftBar)
+
+        NSLayoutConstraint.activate([
+            leftBar.widthAnchor.constraint(equalToConstant: 6),
+            leftBar.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            leftBar.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            leftBar.leadingAnchor.constraint(equalTo: leadingAnchor)
+        ])
+        
         // Labels
         titleLabel.font = .boldSystemFont(ofSize: 18)
         titleLabel.numberOfLines = 0
@@ -96,9 +106,9 @@ final class CoachmarkPopupView: UIView {
         statusLabel.textAlignment = .center
 
         // Default icons (keep your existing loading; adjust if using SPM bundle)
-        nextButton.applyImage(named: "next_icon", tint: nil)
-        previousButton.applyImage(named: "previous_icon", tint: nil)
-        skipButton.applyImage(named: "close_icon", tint: nil)
+        nextButton.setImage(UIImage(named: "next_icon"), for: .normal)
+        previousButton.setImage(UIImage(named: "previous_icon"), for: .normal)
+        skipButton.setImage(UIImage(named: "close_icon"), for: .normal)
         nextButton.titleLabel?.font = UIFont.systemFont(ofSize: 12.0)
 
         nextButton.translatesAutoresizingMaskIntoConstraints = false
@@ -167,7 +177,7 @@ final class CoachmarkPopupView: UIView {
             nextButton.heightAnchor.constraint(equalToConstant: 32),
             previousButton.heightAnchor.constraint(equalToConstant: 32),
             contentTopConstraint,
-            contentStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            contentStack.leadingAnchor.constraint(equalTo: leftBar.trailingAnchor, constant: 16),
             contentTrailingConstraint,
             contentStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
