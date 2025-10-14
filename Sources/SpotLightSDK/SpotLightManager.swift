@@ -155,7 +155,7 @@ public final class SpotLightManager {
     @objc private func nextTapped() {
         if isLastStep {
             listener?.onCoachmarkNextClicked(index: self.currentIndex, isLastIndex: true)
-            self.closeWindow(isCallbackNeeded: false)
+            dismissWindow()
         } else {
             currentIndex += 1
             listener?.onCoachmarkNextClicked(index: self.currentIndex, isLastIndex: false)
@@ -242,15 +242,22 @@ public final class SpotLightManager {
         popup.previousButton.alpha = popup.previousButton.isEnabled ? 1.0 : 0.5
     }
 
-    @objc private func closeWindow(isCallbackNeeded: Bool = true) {
+    @objc private func dismissWindow() {
         if !isCoachmarkVisible { return }
         window?.isHidden = true
         window = nil
         overlayView = nil
         popupView = nil
         isCoachmarkVisible = false
-        if isCallbackNeeded {
-            listener?.onCoachmarkClosed(index: self.currentIndex)   
-        }        
+    }
+    
+    @objc private func closeWindow() {
+        if !isCoachmarkVisible { return }
+        window?.isHidden = true
+        window = nil
+        overlayView = nil
+        popupView = nil
+        isCoachmarkVisible = false
+        listener?.onCoachmarkClosed(index: self.currentIndex)
     }
 }
