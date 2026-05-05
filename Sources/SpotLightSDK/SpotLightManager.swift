@@ -78,6 +78,8 @@ public final class SpotLightManager {
         popup.hideTitleStack = currentTarget.title.text == ""
         popup.descriptionLabel.text = currentTarget.description.text
         popup.statusLabel.text = "\(currentIndex + 1) of \(targets.count)"
+        popup.leftBar.backgroundColor = currentTarget.leftBarFillColor
+        popup.showLeftBar = currentTarget.leftBarShow ?? true
 //        popup.previousButton.isHidden = isFirstTarget()
 //        popup.nextButton.isHidden = isLastTarget()
         popup.previousButton.addTarget(self, action: #selector(previousTapped), for: .touchUpInside)

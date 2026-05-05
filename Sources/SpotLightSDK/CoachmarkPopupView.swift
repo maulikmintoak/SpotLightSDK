@@ -19,6 +19,13 @@ final class CoachmarkPopupView: UIView {
             layoutIfNeeded()
         }
     }
+    var showLeftBar: Bool = true {
+        didSet {
+            leftBar.isHidden = !showLeftBar
+            setNeedsLayout()
+            layoutIfNeeded()
+        }
+    }
     
     var hideTitleStack: Bool = true {
         didSet {

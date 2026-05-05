@@ -8,11 +8,13 @@ public struct CoachmarkTarget {
     public let paddingDp: Int
     public let highlightStrokeColor: UIColor?
     public let highlightFillColor: UIColor?
+    public let leftBarFillColor: UIColor?
     public let nextButtonMode: CMButtonMode?
     public let previousButtonMode: CMButtonMode?
     public let skipButtonMode: CMButtonMode?
     public let showAnimation: Bool?
     public let needBorder: Bool?
+    public let leftBarShow: Bool?
     public let borders: [CMBorder]?
     public let needPadding: Bool?
     public let extraPadding: CGFloat?
@@ -29,11 +31,13 @@ public struct CoachmarkTarget {
                 paddingDp: Int,
                 highlightStrokeColor: UIColor? = nil,
                 highlightFillColor: UIColor? = nil,
+                leftBarFillColor: UIColor? = nil,
                 nextButtonMode: CMButtonMode? = nil,
                 previousButtonMode: CMButtonMode? = nil,
                 skipButtonMode: CMButtonMode? = nil,
                 showAnimation: Bool? = nil,
                 needBorder: Bool? = nil,
+                leftBarShow: Bool? = nil,
                 borders: [CMBorder]? = nil,
                 needPadding: Bool? = nil,
                 extraPadding: CGFloat? = nil,
@@ -49,11 +53,13 @@ public struct CoachmarkTarget {
         self.paddingDp = paddingDp
         self.highlightStrokeColor = highlightStrokeColor
         self.highlightFillColor = highlightFillColor
+        self.leftBarFillColor = leftBarFillColor
         self.nextButtonMode = nextButtonMode
         self.previousButtonMode = previousButtonMode
         self.skipButtonMode = skipButtonMode
         self.showAnimation = showAnimation
         self.needBorder = needBorder
+        self.leftBarShow = leftBarShow
         self.borders = borders
         self.needPadding = needPadding
         self.extraPadding = extraPadding
