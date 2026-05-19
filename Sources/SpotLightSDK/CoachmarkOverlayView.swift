@@ -178,5 +178,9 @@ final class CoachmarkOverlayView: UIView {
         super.removeFromSuperview()
         strokeLayer.removeAllAnimations()
     }
+
+    func isPointInHole(_ point: CGPoint) -> Bool {
+        return getHolePath()?.contains(point) ?? false
+    }
 }
 

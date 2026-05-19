@@ -249,17 +249,24 @@ public final class SpotLightManager {
     }
 
     @objc private func handleOverlayTap(_ gesture: UITapGestureRecognizer) {
-        // Safety check: if the tap is inside the popup's frame, ignore it.
-        // This ensures buttons and labels in the popup remain fully interactive.
-        guard let popup = popupView else {
-            closeWindow()
-            return
+        // 1. If tap is inside the popup, ignore it (preserve popup interaction)
+        if let popup = popupView {
+            let touchLocationInContainer = gesture.location(in: popup.superview)
+            if popup.frame.contains(touchLocationInContainer) {
+                return
+            }
         }
         
-        let touchLocation = gesture.location(in: popup.superview)
-        if !popup.frame.contains(touchLocation) {
-            closeWindow()
+        // 2. If tap is inside the highlighted target (the hole), ignore it
+        if let overlay = overlayView {
+            let touchLocationInOverlay = gesture.location(in: overlay)
+            if overlay.isPointInHole(touchLocationInOverlay) {
+                return
+            }
         }
+
+        // 3. Otherwise, the user tapped the dimmed background area -> Close
+        closeWindow()
     }
 
     @objc private func dismissWindow() {
