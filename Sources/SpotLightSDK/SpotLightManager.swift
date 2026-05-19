@@ -65,6 +65,10 @@ public final class SpotLightManager {
             overlay.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
         ])
         self.overlayView = overlay
+        
+        // Add tap gesture to overlay to dismiss
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleOverlayTap))
+        overlay.addGestureRecognizer(tapGesture)
 
         // Popup
         let popup = CoachmarkPopupView()
@@ -242,6 +246,20 @@ public final class SpotLightManager {
 
         popup.previousButton.isEnabled = currentIndex > 0
         popup.previousButton.alpha = popup.previousButton.isEnabled ? 1.0 : 0.5
+    }
+
+    @objc private func handleOverlayTap(_ gesture: UITapGestureRecognizer) {
+        // Safety check: if the tap is inside the popup's frame, ignore it.
+        // This ensures buttons and labels in the popup remain fully interactive.
+        guard let popup = popupView else {
+            closeWindow()
+            return
+        }
+        
+        let touchLocation = gesture.location(in: popup.superview)
+        if !popup.frame.contains(touchLocation) {
+            closeWindow()
+        }
     }
 
     @objc private func dismissWindow() {

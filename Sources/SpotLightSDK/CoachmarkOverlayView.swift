@@ -15,7 +15,7 @@ final class CoachmarkOverlayView: UIView {
 //        self.shape = target.shape
         super.init(frame: UIScreen.main.bounds)
         backgroundColor = .clear
-        isUserInteractionEnabled = false
+        isUserInteractionEnabled = true
         setupStrokeLayer()
         if target.showAnimation ?? true {
             startBreathingAnimation()
