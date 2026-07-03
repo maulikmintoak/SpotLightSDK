@@ -23,7 +23,12 @@ public struct CoachmarkTarget {
     public let titleAlignment: NSTextAlignment?
     public let descriptionAlignment: NSTextAlignment?
     public let showBottomButtonStack: Bool?
-    
+    public let iconRenderingMode: UIImage.RenderingMode?
+    public let statusTextStyle: CMText?
+    public let nextImage: UIImage?
+    public let previousImage: UIImage?
+    public let closeImage: UIImage?
+
     public init(targetView: UIView,
                 title: CMText,
                 description: CMText,
@@ -45,7 +50,12 @@ public struct CoachmarkTarget {
                 popupDistance: CGFloat? = nil,
                 titleAlignment: NSTextAlignment? = nil,
                 descriptionAlignment: NSTextAlignment? = nil,
-                showBottomButtonStack: Bool? = nil) {
+                showBottomButtonStack: Bool? = nil,
+                iconRenderingMode: UIImage.RenderingMode? = nil,
+                statusTextStyle: CMText? = nil,
+                nextImage: UIImage? = nil,
+                previousImage: UIImage? = nil,
+                closeImage: UIImage? = nil) {
         self.targetView = targetView
         self.title = title
         self.description = description
@@ -68,6 +78,11 @@ public struct CoachmarkTarget {
         self.titleAlignment = titleAlignment
         self.descriptionAlignment = descriptionAlignment
         self.showBottomButtonStack = showBottomButtonStack
+        self.iconRenderingMode = iconRenderingMode
+        self.statusTextStyle = statusTextStyle
+        self.nextImage = nextImage
+        self.previousImage = previousImage
+        self.closeImage = closeImage
     }
 }
 
@@ -143,11 +158,12 @@ extension UIButton {
         titleLabel?.font = cm.font
     }
     
-    func applyImage(named name: String, tint: UIColor?) {
-        let img = (CMAssets.image(name) ?? UIImage(named: name))?.withRenderingMode(.alwaysTemplate)
+    func applyImage(_ image: UIImage? = nil, named name: String, tint: UIColor?, renderingMode: UIImage.RenderingMode = .alwaysTemplate) {
+        let base = image ?? CMAssets.image(name) ?? UIImage(named: name)
+        let img = base?.withRenderingMode(renderingMode)
         setTitle("", for: .normal)
         setImage(img, for: .normal)
-        if let tint = tint { self.tintColor = tint }
+        if renderingMode == .alwaysTemplate, let tint = tint { self.tintColor = tint }
         backgroundColor = .clear
         contentEdgeInsets = .zero
         layer.cornerRadius = 0
