@@ -82,6 +82,9 @@ public final class SpotLightManager {
         popup.hideTitleStack = currentTarget.title.text == ""
         popup.descriptionLabel.text = currentTarget.description.text
         popup.statusLabel.text = "\(currentIndex + 1) of \(targets.count)"
+        if let statusStyle = currentTarget.statusTextStyle {
+            popup.statusLabel.configureLabel(color: statusStyle.color, font: statusStyle.font)
+        }
         popup.leftBar.backgroundColor = currentTarget.leftBarFillColor
         popup.showLeftBar = currentTarget.leftBarShow ?? true
 //        popup.previousButton.isHidden = isFirstTarget()
@@ -188,6 +191,9 @@ public final class SpotLightManager {
         popup.hideTitleStack = currentTarget.title.text == ""
         popup.descriptionLabel.text = currentTarget.description.text
         popup.statusLabel.text = "\(currentIndex + 1) of \(targets.count)"
+        if let statusStyle = currentTarget.statusTextStyle {
+            popup.statusLabel.configureLabel(color: statusStyle.color, font: statusStyle.font)
+        }
         popup.titleLabel.configureLabel(color: currentTarget.title.color, font: currentTarget.title.font)
         popup.titleLabel.textAlignment = currentTarget.titleAlignment ?? .left
         
@@ -214,10 +220,11 @@ public final class SpotLightManager {
     
     private func updateButtonStates(popup: CoachmarkPopupView) {
         let target = targets[currentIndex]
+        let renderMode = target.iconRenderingMode ?? .alwaysTemplate
 
         let prevMode = target.previousButtonMode ?? .image()
         switch prevMode {
-        case .image(let tint): popup.previousButton.applyImage(named: "previous_icon", tint: tint)
+        case .image(let tint): popup.previousButton.applyImage(target.previousImage, named: "previous_icon", tint: tint, renderingMode: renderMode)
         case .text(let t):     popup.previousButton.applyText(t)
         }
 
@@ -227,7 +234,7 @@ public final class SpotLightManager {
         let nextMode = target.nextButtonMode ?? defaultNext
         switch nextMode {
         case .image(let tint):
-            popup.nextButton.applyImage(named: "next_icon", tint: tint)
+            popup.nextButton.applyImage(target.nextImage, named: "next_icon", tint: tint, renderingMode: renderMode)
         case .text(let t):
             popup.nextButton.applyText(t)
             if isLastTarget() {
@@ -240,7 +247,7 @@ public final class SpotLightManager {
 
         let skipMode = target.skipButtonMode ?? .image()
         switch skipMode {
-        case .image(let tint): popup.skipButton.applyImage(named: "close_icon", tint: .black)
+        case .image: popup.skipButton.applyImage(target.closeImage, named: "close_icon", tint: .black, renderingMode: renderMode)
         case .text(let t):     popup.skipButton.applyText(t)
         }
 
