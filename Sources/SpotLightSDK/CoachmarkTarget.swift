@@ -27,6 +27,10 @@ public struct CoachmarkTarget {
     public let statusTextStyle: CMText?
     public let nextImage: UIImage?
     public let previousImage: UIImage?
+    /// Optional fully-designed image for the previous button in its DISABLED (first step) state — e.g.
+    /// Axis's grey "btn-prev" (fill + border + grey arrow baked in). When nil (default), the SDK keeps
+    /// its original behaviour (fade the normal previous icon), so other hosts are unaffected.
+    public let previousDisabledImage: UIImage?
     public let closeImage: UIImage?
 
     public init(targetView: UIView,
@@ -55,6 +59,7 @@ public struct CoachmarkTarget {
                 statusTextStyle: CMText? = nil,
                 nextImage: UIImage? = nil,
                 previousImage: UIImage? = nil,
+                previousDisabledImage: UIImage? = nil,
                 closeImage: UIImage? = nil) {
         self.targetView = targetView
         self.title = title
@@ -82,6 +87,7 @@ public struct CoachmarkTarget {
         self.statusTextStyle = statusTextStyle
         self.nextImage = nextImage
         self.previousImage = previousImage
+        self.previousDisabledImage = previousDisabledImage
         self.closeImage = closeImage
     }
 }
