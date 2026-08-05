@@ -252,7 +252,15 @@ public final class SpotLightManager {
         }
 
         popup.previousButton.isEnabled = currentIndex > 0
-        popup.previousButton.alpha = popup.previousButton.isEnabled ? 1.0 : 0.5
+        if !popup.previousButton.isEnabled, let disabledImage = target.previousDisabledImage {
+            // Host supplied a fully-designed disabled-back asset (e.g. Axis's grey btn-prev with border):
+            // show it solid, per Figma. Enabled steps keep the normal icon applied above.
+            popup.previousButton.setImage(disabledImage.withRenderingMode(.alwaysOriginal), for: .normal)
+            popup.previousButton.alpha = 1.0
+        } else {
+            // Default (unchanged for other hosts, e.g. HDFC): fade the normal previous icon on step one.
+            popup.previousButton.alpha = popup.previousButton.isEnabled ? 1.0 : 0.5
+        }
     }
 
     @objc private func handleOverlayTap(_ gesture: UITapGestureRecognizer) {
